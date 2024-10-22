@@ -1,0 +1,62 @@
+networks:
+    site01:
+    site01db:
+secrets:
+    SITE01_USERNAME:
+        external: true
+    SITE01_PASSWORD:
+        external: true
+
+services:
+    webserver:
+        image: ghcr.io/hirbod-codes/site01/nginx:${tag}
+        depends_on:
+            - wordpress
+        ports:
+            - 80:80
+        networks:
+            - site01
+    wordpress:
+        image: wordpress:6-php8.1-apache
+        depends_on:
+            - mysql
+        environment:
+            WORDPRESS_DB_HOST: mysql
+            WORDPRESS_DB_USER_FILE: /run/secrets/SITE01_USERNAME
+            WORDPRESS_DB_PASSWORD_FILE: /run/secrets/SITE01_PASSWORD
+            WORDPRESS_DB_NAME: wordpress
+        secrets:
+          - SITE01_USERNAME
+          - SITE01_PASSWORD
+        networks:
+            - site01
+            - site01db
+    mysql:
+        image: mysql:8.4
+        environment:
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER_FILE: /run/secrets/SITE01_USERNAME
+            MYSQL_PASSWORD_FILE: /run/secrets/SITE01_PASSWORD
+            MYSQL_ROOT_PASSWORD_FILE: /run/secrets/SITE01_PASSWORD
+            MYSQL_RANDOM_ROOT_PASSWORD: "0"
+        secrets:
+          - SITE01_USERNAME
+          - SITE01_PASSWORD
+        networks:
+            - site01db
+    phpmyadmin:
+        image: phpmyadmin:5
+        ports:
+            - 8081:80
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+            PMA_USER_FILE: /run/secrets/SITE01_USERNAME
+            PMA_PASSWORD_FILE: /run/secrets/SITE01_PASSWORD
+            MYSQL_PASSWORD_FILE: /run/secrets/SITE01_PASSWORD
+            MYSQL_ROOT_PASSWORD_FILE: /run/secrets/SITE01_PASSWORD
+        secrets:
+          - SITE01_USERNAME
+          - SITE01_PASSWORD
+        networks:
+            - site01db
