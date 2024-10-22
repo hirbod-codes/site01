@@ -72,9 +72,9 @@ jobs:
                   script: |
                       mkdir -p swarm/site01/
                       docker stack rm site01
-                      docker secret rm SITE01DB_USERNAME SITE01DB_PASSWORD
-                      echo "${{ secrets.SITE01DB_USERNAME }}" | docker secret create SITE01DB_USERNAME -
-                      echo "${{ secrets.SITE01DB_PASSWORD }}" | docker secret create SITE01DB_PASSWORD -
+                      docker secret rm SITE01_USERNAME SITE01_PASSWORD
+                      echo "${{ secrets.SITE01_USERNAME }}" | docker secret create SITE01_USERNAME -
+                      echo "${{ secrets.SITE01_PASSWORD }}" | docker secret create SITE01_PASSWORD -
                       sleep 5s
 
             - uses: appleboy/scp-action@v0.1.7
