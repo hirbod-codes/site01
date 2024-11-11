@@ -42,6 +42,8 @@ services:
         secrets:
           - SITE01_USERNAME
           - SITE01_PASSWORD
+        volumes:
+          - ./data:/var/lib/mysql
         networks:
             - site01db
     phpmyadmin:
