@@ -6,6 +6,9 @@ secrets:
         external: true
     SITE01_PASSWORD:
         external: true
+volumes:
+    site01_wordpress:
+    site01_mysql:
 
 services:
     webserver:
@@ -29,7 +32,7 @@ services:
           - SITE01_USERNAME
           - SITE01_PASSWORD
         volumes:
-          - ./wordpress:./
+          - site01_wordpress:./
         networks:
             - site01
             - site01db
@@ -45,7 +48,7 @@ services:
           - SITE01_USERNAME
           - SITE01_PASSWORD
         volumes:
-          - ./data:/var/lib/mysql
+          - site01_mysql:/var/lib/mysql
         networks:
             - site01db
     phpmyadmin:

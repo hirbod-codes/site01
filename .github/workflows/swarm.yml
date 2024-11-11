@@ -70,7 +70,7 @@ jobs:
                   username: ${{ secrets.SSH_SERVER_USERNAME }}
                   password: ${{ secrets.SSH_SERVER_PASSWORD }}
                   script: |
-                      mkdir -p swarm/site01/data swarm/site01/wordpress
+                      mkdir -p swarm/site01/
                       docker stack rm site01
                       docker secret rm SITE01_USERNAME SITE01_PASSWORD
                       echo "${{ secrets.SITE01_USERNAME }}" | docker secret create SITE01_USERNAME -
