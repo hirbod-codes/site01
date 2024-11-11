@@ -33,6 +33,7 @@ services:
           - SITE01_PASSWORD
         volumes:
           - site01_wordpress:/var/www/html/wp-content
+          - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
         networks:
             - site01
             - site01db
