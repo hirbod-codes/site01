@@ -32,7 +32,7 @@ services:
           - SITE01_USERNAME
           - SITE01_PASSWORD
         volumes:
-          - site01_wordpress:./
+          - site01_wordpress:/var/www/html/wp-content
         networks:
             - site01
             - site01db
