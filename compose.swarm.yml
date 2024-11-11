@@ -28,6 +28,8 @@ services:
         secrets:
           - SITE01_USERNAME
           - SITE01_PASSWORD
+        volumes:
+          - ./wordpress:./
         networks:
             - site01
             - site01db
