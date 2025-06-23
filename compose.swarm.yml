@@ -16,7 +16,8 @@ services:
         depends_on:
             - wordpress
         ports:
-            - 1504:80
+            - 80:80
+            - 443:443
         networks:
             - site01
     wordpress:
